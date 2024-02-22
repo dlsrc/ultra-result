@@ -1,0 +1,27 @@
+{
+    "name": "ultra/result",
+    "type": "library",
+    "description": "Allows you to process valid results and states, undefined states and error states as objects of a single interface.",
+    "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/dlsrc/ultra-result"
+        }
+    ],
+    "authors": [
+        {
+            "name": "Dmitry Lebedev",
+            "email": "dl@adios.ru",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4" : {
+            "Ultra\\Result\\" : "src/"
+        }
+    },
+    "require": {
+        "php": ">=8.3"
+    }
+}
