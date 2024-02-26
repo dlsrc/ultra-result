@@ -4,14 +4,14 @@
  * This source code is part of the Ultra library.
  * Please see the LICENSE file for copyright and licensing information.
  */
-namespace Ultra\Result;
+namespace Ultra;
 
 /**
  * Стандартная обёртка для валидных значений любых типов.
- * Класс использует для имплементации интерфейса \Ultra\Result\State
- * типаж Ultra\Result\Wrapper.
+ * Класс использует для имплементации интерфейса \Ultra\State
+ * типаж Ultra\Wrapper.
  */
-class Success implements State {
+class Result implements State {
 	use Wrapper;
 
 	final public function __construct(mixed $value) {

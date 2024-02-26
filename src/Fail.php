@@ -4,7 +4,7 @@
  * This source code is part of the Ultra library.
  * Please see the LICENSE file for copyright and licensing information.
  */
-namespace Ultra\Result;
+namespace Ultra;
 
 /**
  * Класс определяет состояние или результат, находящийся в ошибочном, неприемлемом или
@@ -12,7 +12,7 @@ namespace Ultra\Result;
  * Хранит основные параметры ошибочного состояния: сообщение об ошибке; статус ошибки;
  * трассировку (опционально); имя файла и номер строки, в которых зафиксировано ошибочное
  * состояние.
- * Класс использует для имплементации интерфейса Ultra\Result\State типаж Ultra\Result\Suspense.
+ * Класс использует для имплементации интерфейса Ultra\State типаж Ultra\Suspense.
  */
 readonly class Fail implements State {
 	use Suspense;

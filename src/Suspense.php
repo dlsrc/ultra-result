@@ -4,12 +4,12 @@
  * This source code is part of the Ultra library.
  * Please see the LICENSE file for copyright and licensing information.
  */
-namespace Ultra\Result;
+namespace Ultra;
 
 use Closure;
 
 /**
- * Типаж для прямой имплементации интерфейса Ultra\Result\State в классы ошибочных, неожиданных
+ * Типаж для прямой имплементации интерфейса Ultra\State в классы ошибочных, неожиданных
  * и неопределённых состояний.
  */
 trait Suspense {

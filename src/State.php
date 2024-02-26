@@ -4,7 +4,7 @@
  * This source code is part of the Ultra library.
  * Please see the LICENSE file for copyright and licensing information.
  */
-namespace Ultra\Result;
+namespace Ultra;
 
 use Closure;
 
@@ -24,7 +24,7 @@ interface State {
 	 * Вернуть текущий интерфейс, если он соответствует действительному результату,	в противном
 	 * случае вернуть NULL.
 	 * Если будет передан необязательный аргумент $default, отличный от NULL, то вместо NULL
-	 * вернётся новый интерфейс Ultra\Result\State, созданный из $default.
+	 * вернётся новый интерфейс Ultra\State, созданный из $default.
 	 */
 	public function call(mixed $default = null): self|null;
 
@@ -46,55 +46,55 @@ interface State {
 	 * должно вернуть, либо NULL, либо валидное значение ожидаемого типа.
 	 * 
 	 * Ожидаемая сигнатура замыканий:
-	 * fn reject(Ultra\Result\State $reject): mixed;
+	 * fn reject(Ultra\State $reject): mixed;
 	 */
 	public function expect(Closure|null $reject = null): mixed;
 
 	/**
-	 * Обработать результат и вернуть либо интерфейс Ultra\Result\State, либо NULL.
+	 * Обработать результат и вернуть либо интерфейс Ultra\State, либо NULL.
 	 * В случае действительного результата, обработать результат, используя замыкание, заданное
 	 * необязательным аргументом $resolve.
-	 * Если $resolve возвращает инетфейс Ultra\Result\State, то возвращается этот интерфейс, вне
+	 * Если $resolve возвращает инетфейс Ultra\State, то возвращается этот интерфейс, вне
 	 * зависимости от типа нового объекта реализующего интерфейс.
 	 * Если $resolve возвращает любое другое значение отличное от NULL, то на основании этого
-	 * значения должен быть создан и возвращён интерфейс Ultra\Result\State.
+	 * значения должен быть создан и возвращён интерфейс Ultra\State.
 	 * Если $resolve возвращает NULL, то интерфейс должен вернуть сам себя.
 	 * Если $resolve не будет задан, то интерфейс должен вернуть сам себя.
 	 * В случае ошибочного или отсутствующего результата, обработать ошибочное состояние,
 	 * исполнить замыкание, заданное необязательным аргументом $reject.
 	 * Если $reject не прерывает исполнение программы и не выбрасывает исключение, а возвращает
-	 * инетфейс Ultra\Result\State, то возвращается этот интерфейс, вне зависимости от типа нового
+	 * инетфейс Ultra\State, то возвращается этот интерфейс, вне зависимости от типа нового
 	 * объекта, реализующего интерфейс.
 	 * Если $reject возвращает любое другое значение отличное от NULL, то на основании этого
-	 * значения должен быть создан и возвращён интерфейс Ultra\Result\State.
+	 * значения должен быть создан и возвращён интерфейс Ultra\State.
 	 * Если $reject возвращает NULL, то интерфейс должен вернуть NULL.
 	 * Если $reject не будет задан, то возвращается NULL.
 	 * 
 	 * Ожидаемая сигнатура замыканий:
-	 * fn resolve(Ultra\Result\State $value): mixed;
-	 * fn reject(Ultra\Result\State $reject): mixed;
+	 * fn resolve(Ultra\State $value): mixed;
+	 * fn reject(Ultra\State $reject): mixed;
 	 */
 	public function fetch(Closure|null $resolve = null, Closure|null $reject = null): self|null;
 
 	/**
-	 * Обработать результат и вернуть интерфейс Ultra\Result\State.
-	 * Логика метода аналогична Ultra\Result\State::fetch(), но в отличии от Ultra\Result\State::fetch()
-	 * метод всегда возвращает интерфейс Ultra\Result\State, то есть если $reject возвращает NULL или $reject
+	 * Обработать результат и вернуть интерфейс Ultra\State.
+	 * Логика метода аналогична Ultra\State::fetch(), но в отличии от Ultra\State::fetch()
+	 * метод всегда возвращает интерфейс Ultra\State, то есть если $reject возвращает NULL или $reject
 	 * не будет задан, то интерфейс должен вернуть сам себя, а не NULL.
 	 */
 	public function follow(Closure|null $resolve = null, Closure|null $reject = null): self;
 
 	/**
 	 * Совершить действия над успешным результатом передав замыкание $resolve, вернуть интерфейс
-	 * Ultra\Result\State.
-	 * По умолчанию аналогично вызову Ultra\Result\State::follow($resolve);
+	 * Ultra\State.
+	 * По умолчанию аналогично вызову Ultra\State::follow($resolve);
 	 */
 	public function commit(Closure $resolve): self;
 	
 	/**
-	 * Попытаться восстановить результат из ошибочного состояния и вернуть интерфейс Ultra\Result\State
+	 * Попытаться восстановить результат из ошибочного состояния и вернуть интерфейс Ultra\State
 	 * с действующим значением.
-	 * Аналогично вызову Ultra\Result\State::follow(null, $reject);
+	 * Аналогично вызову Ultra\State::follow(null, $reject);
 	 */
 	public function recover(Closure $reject): self;
 }

@@ -4,12 +4,12 @@
  * This source code is part of the Ultra library.
  * Please see the LICENSE file for copyright and licensing information.
  */
-namespace Ultra\Result;
+namespace Ultra;
 
 /**
  * Интерфейс для перечислений, типизированных целочисленными значениями,
  * варианты которых являются кодами состояния (ошибки).
- * Наиболее общие коды состояния собраны в перечислении Ultra\Result\Status.
+ * Наиболее общие коды состояния собраны в перечислении Ultra\Status.
  */
 interface Condition extends \BackedEnum {
 	/**

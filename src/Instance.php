@@ -4,18 +4,18 @@
  * This source code is part of the Ultra library.
  * Please see the LICENSE file for copyright and licensing information.
  */
-namespace Ultra\Result;
+namespace Ultra;
 
 use Closure;
 
 /**
- * Типаж реализует интерфейс Ultra\Result\State у классов напрямую.
+ * Типаж реализует интерфейс Ultra\State у классов напрямую.
  * Типаж для классов, экземпляры которых не являются обёртками и не должны оборочиваться
- * интерфейсом Ultra\Result\State, а должны имплементировать интерфейс Ultra\Result\State напрямую.
- * Подразумевается что экземпляры классов использующих типаж Ultra\Result\Instance реализуют
- * интерфейс Ultra\Result\State для валидных значений.
- * Для аналогичной реализации интерфейса Ultra\Result\State для ошибочных и неопределённых
- * значений нужно использовать типах Ultra\Result\Suspense.
+ * интерфейсом Ultra\State, а должны имплементировать интерфейс Ultra\State напрямую.
+ * Подразумевается что экземпляры классов использующих типаж Ultra\Instance реализуют
+ * интерфейс Ultra\State для валидных значений.
+ * Для аналогичной реализации интерфейса Ultra\State для ошибочных и неопределённых
+ * значений нужно использовать типах Ultra\Suspense.
  */
 trait Instance {
 	/**
@@ -53,7 +53,7 @@ trait Instance {
 	/**
 	 * Так как код из $reject для действующего результата никогда не будет выполнен, то NULL
 	 * никогда не будет возвращен (см. ковариантность).
-	 * В данном контексте метод будет синонимом Ultra\Result\State::follow().
+	 * В данном контексте метод будет синонимом Ultra\State::follow().
 	 */
 	public function fetch(Closure|null $resolve = null, Closure|null $reject = null): self {
 		return $this->follow($resolve);
@@ -76,7 +76,7 @@ trait Instance {
 			return $result;
 		}
 
-		return new Success($result);
+		return new Result($result);
 	}
 
 	/**

@@ -4,10 +4,10 @@
  * This source code is part of the Ultra library.
  * Please see the LICENSE file for copyright and licensing information.
  */
-namespace Ultra\Result;
+namespace Ultra;
 
 /**
- * Реализация интерфейса Ultra\Result\Condition для наиболее общих состояний.
+ * Реализация интерфейса Ultra\Condition для наиболее общих состояний.
  */
 enum Status: int implements Condition {
 	case Success          = 0;                    // Ошибки отсутствуют.

@@ -4,14 +4,14 @@
  * This source code is part of the Ultra library.
  * Please see the LICENSE file for copyright and licensing information.
  */
-namespace Ultra\Result;
+namespace Ultra;
 
 use Closure;
 
 /**
- * Типаж для имплементации интерфейса \Ultra\Result\State в классах, служащих обёрткой валидным
+ * Типаж для имплементации интерфейса \Ultra\State в классах, служащих обёрткой валидным
  * значениям любого типа.
- * На основе типажа Ultra\Result\Wrapper реализована стандартная обёртка Ultra\Result\Success.
+ * На основе типажа Ultra\Wrapper реализована стандартная обёртка Ultra\Result.
  */
 trait Wrapper {
 	/**
@@ -47,7 +47,7 @@ trait Wrapper {
 	/**
 	 * Так как код из $reject для действующего результата никогда не будет выполнен, то NULL
 	 * никогда не будет возвращен (см. ковариантность).
-	 * В данном контексте метод будет синонимом Ultra\Result\State::follow().
+	 * В данном контексте метод будет синонимом Ultra\State::follow().
 	 */
 	public function fetch(Closure|null $resolve = null, Closure|null $reject = null): self {
 		return $this->follow($resolve);
@@ -70,7 +70,7 @@ trait Wrapper {
 			return $result;
 		}
 
-		return new Success($result);
+		return new Result($result);
 	}
 
 	/**
