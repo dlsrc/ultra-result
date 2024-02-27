@@ -14,14 +14,14 @@ namespace Ultra;
  * состояние.
  * Класс использует для имплементации интерфейса Ultra\State типаж Ultra\Suspense.
  */
-readonly class Fail implements State {
+class Fail implements State {
 	use Suspense;
 
 	final public function __construct(
-		public  Condition $type,
-		public     string $message,
-		public     string $file  = "",
-		public        int $line  = 0,
-		public array|null $trace = null,
+		public readonly Condition $type,
+		public readonly string $message,
+		public readonly string $file  = "",
+		public readonly int $line  = 0,
+		public readonly array|null $trace = null,
 	) {}
 }
