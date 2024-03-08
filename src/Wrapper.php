@@ -32,7 +32,7 @@ trait Wrapper {
 	 * Так как действительный результат всегда готов к использованию, то возвращается всегда
 	 * сам объект (см. ковариантность).
 	 */
-	public function call(mixed $default = null): self {
+	public function call(mixed $default = null): State {
 		return $this;
 	}
 
@@ -49,11 +49,11 @@ trait Wrapper {
 	 * никогда не будет возвращен (см. ковариантность).
 	 * В данном контексте метод будет синонимом Ultra\State::follow().
 	 */
-	public function fetch(Closure|null $resolve = null, Closure|null $reject = null): self {
+	public function fetch(Closure|null $resolve = null, Closure|null $reject = null): State {
 		return $this->follow($resolve);
 	}
 
-	public function follow(Closure|null $resolve = null, Closure|null $reject = null): self {
+	public function follow(Closure|null $resolve = null, Closure|null $reject = null): State {
 		if (null === $resolve) {
 			return $this;
 		}
@@ -61,7 +61,7 @@ trait Wrapper {
 		return $this->commit($resolve);
 	}
 
-	public function commit(Closure $resolve): self {
+	public function commit(Closure $resolve): State {
 		if (null === ($result = $resolve($this))) {
 			return $this;
 		}
@@ -77,7 +77,7 @@ trait Wrapper {
 	 * Поскольку результат действующий, восстановление после ошибки не требуется.
 	 * Сразу возвращается сам интерфейс.
 	 */
-	public function recover(Closure $reject): self {
+	public function recover(Closure $reject): State {
 		return $this;
 	}
 }

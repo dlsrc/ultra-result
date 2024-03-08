@@ -21,7 +21,7 @@ trait Suspense {
 		return false;
 	}
 
-	public function call(mixed $default = null): self|null {
+	public function call(mixed $default = null): State|null {
 		if (null === $default) {
 			return null;
 		}
@@ -48,7 +48,7 @@ trait Suspense {
 		return $reject($this);
 	}
 
-	public function fetch(Closure|null $resolve = null, Closure|null $reject = null): self|null {
+	public function fetch(Closure|null $resolve = null, Closure|null $reject = null): State|null {
 		if (null === $reject && null === ($result = $reject($this))) {
 			return null;
 		}
@@ -60,7 +60,7 @@ trait Suspense {
 		return new Substitute($result, $this);
 	}
 
-	public function follow(Closure|null $resolve = null, Closure|null $reject = null): self {
+	public function follow(Closure|null $resolve = null, Closure|null $reject = null): State {
 		if (null === $reject) {
 			return $this;
 		}
@@ -72,11 +72,11 @@ trait Suspense {
 	 * Поскольку результат ошибочный, совершать любые действия с ним бессмысленно.
 	 * Сразу возвращается сам интерфейс.
 	 */
-	public function commit(Closure $resolve): self {
+	public function commit(Closure $resolve): State {
 		return $this;
 	}
 
-	public function recover(Closure $reject): self {
+	public function recover(Closure $reject): State {
 		if (null === ($result = $reject($this))) {
 			return $this;
 		}
