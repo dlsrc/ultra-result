@@ -79,8 +79,9 @@ interface State {
 	/**
 	 * Обработать результат и вернуть интерфейс Ultra\State.
 	 * Логика метода аналогична Ultra\State::fetch(), но в отличии от Ultra\State::fetch()
-	 * метод всегда возвращает интерфейс Ultra\State, то есть если $reject возвращает NULL или $reject
-	 * не будет задан, то интерфейс должен вернуть сам себя, а не NULL.
+	 * Ultra\State::follow() всегда возвращает интерфейс Ultra\State, то есть,
+	 * если $reject возвращает NULL или $reject не будет задан, то интерфейс должен вернуть сам себя,
+	 * а не NULL.
 	 */
 	public function follow(Closure|null $resolve = null, Closure|null $reject = null): self;
 
