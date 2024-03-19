@@ -46,7 +46,7 @@ interface State {
 	 * должно вернуть, либо NULL, либо валидное значение ожидаемого типа.
 	 * 
 	 * Ожидаемая сигнатура замыканий:
-	 * fn reject(Ultra\State $reject): mixed;
+	 * fn reject(Ultra\State $result): mixed;
 	 */
 	public function expect(Closure|null $reject = null): mixed;
 
@@ -71,8 +71,8 @@ interface State {
 	 * Если $reject не будет задан, то возвращается NULL.
 	 * 
 	 * Ожидаемая сигнатура замыканий:
-	 * fn resolve(Ultra\State $value): mixed;
-	 * fn reject(Ultra\State $reject): mixed;
+	 * fn resolve(Ultra\State $result): mixed;
+	 * fn reject(Ultra\State $result): mixed;
 	 */
 	public function fetch(Closure|null $resolve = null, Closure|null $reject = null): self|null;
 
@@ -82,6 +82,9 @@ interface State {
 	 * Ultra\State::follow() всегда возвращает интерфейс Ultra\State, то есть,
 	 * если $reject возвращает NULL или $reject не будет задан, то интерфейс должен вернуть сам себя,
 	 * а не NULL.
+	 * Ожидаемая сигнатура замыканий:
+	 * fn resolve(Ultra\State $result): mixed;
+	 * fn reject(Ultra\State $result): mixed;
 	 */
 	public function follow(Closure|null $resolve = null, Closure|null $reject = null): self;
 
@@ -89,6 +92,8 @@ interface State {
 	 * Совершить действия над успешным результатом передав замыкание $resolve, вернуть интерфейс
 	 * Ultra\State.
 	 * По умолчанию аналогично вызову Ultra\State::follow($resolve);
+	 * Ожидаемая сигнатура замыкания:
+	 * fn resolve(Ultra\State $result): mixed;
 	 */
 	public function commit(Closure $resolve): self;
 	
@@ -96,6 +101,8 @@ interface State {
 	 * Попытаться восстановить результат из ошибочного состояния и вернуть интерфейс Ultra\State
 	 * с действующим значением.
 	 * Аналогично вызову Ultra\State::follow(null, $reject);
+	 * Ожидаемая сигнатура замыкания:
+	 * fn reject(Ultra\State $result): mixed;
 	 */
 	public function recover(Closure $reject): self;
 }
