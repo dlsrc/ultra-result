@@ -26,7 +26,7 @@ trait Suspense {
 			return null;
 		}
 		
-		if (is_object($default) && ($default instanceof State)) {
+		if ($default instanceof State) {
 			return $default;
 		}
 
@@ -53,7 +53,7 @@ trait Suspense {
 			return null;
 		}
 
-		if (is_object($result) && ($result instanceof State)) {
+		if ($result instanceof State) {
 			return $result;
 		}
 
@@ -81,10 +81,22 @@ trait Suspense {
 			return $this;
 		}
 
-		if (is_object($result) && ($result instanceof State)) {
+		if ($result instanceof State) {
 			return $result;
 		}
 
 		return new Substitute($result, $this);
+	}
+
+	public function chain(Closure ...$links): State {
+		return $this;
+	}
+
+	public function visit(Closure ...$acceptors): State {
+		return $this;
+	}
+
+	public function pipe(Closure ...$gates): array {
+		return [$this];
 	}
 }
