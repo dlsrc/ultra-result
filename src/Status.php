@@ -20,9 +20,6 @@ enum Status: int implements Condition {
 	case CoreWarning      = E_CORE_WARNING;      // [32] Предупреждение времени запуска РНР.
 	case CompileError     = E_COMPILE_ERROR;     // [64] Фатальная ошибка на этапе компиляции.
 	case CompileWarning   = E_COMPILE_WARNING;   // [128] Предупреждение на этапе компиляции.
-	case Strict           = 2048;
-	//case Strict           = E_STRICT;          // [2048] Уведомление с предложением лучшего
-												 //        взаимодействия и совместимости кода.
 	case RecoverableError = E_RECOVERABLE_ERROR; // [4096] Фатальные ошибки с возможностью обработки.
 	case Deprecated       = E_DEPRECATED;        // [8192] Уведомления времени выполнения об
 												 //        использовании устаревших конструкций.
