@@ -87,16 +87,4 @@ trait Suspense {
 
 		return new Substitute($result, $this);
 	}
-
-	public function chain(Closure ...$links): State {
-		return $this;
-	}
-
-	public function visit(Closure ...$acceptors): State {
-		return $this;
-	}
-
-	public function pipe(Closure ...$gates): array {
-		return [$this];
-	}
 }
