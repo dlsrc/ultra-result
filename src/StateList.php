@@ -11,30 +11,30 @@ namespace Ultra;
  * Класс использует для имплементации интерфейса \Ultra\State
  * типаж Ultra\ArrayWrapper.
  */
-class ResultList implements State {
+class StateList implements State {
 	use ArrayWrapper;
 
-	final public function __construct(mixed ...$values) {
+	final public function __construct(State ...$values) {
 		$this->_value = $values;
 	}
 
-	final public function append(mixed $value): void {
+	final public function append(State $value): void {
 		$this->_value[] = $value;
 	}
 
-	final public function last(): mixed {
+	final public function last(): State {
 		if (null === ($key = array_key_last($this->_value))) {
-			return null;
+			return new Fail(Status::Range, 'Trying to find a State in an empty array.');
 		}
 
 		return $this->_value[$key];
 	}
 
-	final public function __invoke(int $id): mixed {
+	final public function __invoke(int $id): State {
 		if (isset($this->_value[$id])) {
 			return $this->_value[$id];
 		}
 
-		return null;
+		return new Fail(Status::Range, 'Index #'.$id.' not exists.');
 	}
 }

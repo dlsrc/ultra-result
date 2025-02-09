@@ -8,14 +8,17 @@ namespace Ultra;
 
 /**
  * Обёртка для ассоциативного массива.
- * Класс использует для имплементации интерфейса \Ultra\State
- * типаж Ultra\Wrapper.
+ * Класс использует для имплементации интерфейса \Ultra\State типаж Ultra\ArrayWrapper.
  */
 class ResultMap implements State {
-	use Wrapper;
+	use ArrayWrapper;
 
-	final public function __construct(array $value) {
-		$this->_value = $value;
+	final public function __construct(array $map = []) {
+		$this->_value = $map;
+	}
+
+	final public function __set(string $name, mixed $value): void {
+		$this->_value[$name] = $value;
 	}
 
 	final public function __get(string $name): mixed {

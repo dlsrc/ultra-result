@@ -34,23 +34,31 @@ trait Pipe {
 			return $this;
 		}
 
-		$state = [$this];
+		$list = new ResultList($this);
 
 		foreach ($handlers as $key => $handler) {
-			$id = $key + 1;
+			$last = $list($key);
 
-			if ($state[$key] instanceof State) {
-				$state[$id] = $handler($state[$key]);
+			if ($last instanceof State) {
+				if (!$last->valid()) {
+					return $last;
+				}
+
+				$list->append($handler($last));
 			}
 			else {
-				$state[$id] = $handler($this);
-			}
-
-			if (!$state[$id]->valid()) {
-				return $state[$id];
+				$list->append($handler($this));
 			}
 		}
 
-		return new ResultList($state);
+		$last = $list->last();
+
+		if ($last instanceof State) {
+			if (!$last->valid()) {
+				return $last;
+			}
+		}
+
+		return $list;
 	}
 }
