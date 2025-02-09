@@ -1,6 +1,6 @@
 {
     "name": "ultra/result",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "type": "library",
     "description": "Allows you to process valid results and states, undefined states, and error states as objects of a single interface.",
     "license": "MIT",
