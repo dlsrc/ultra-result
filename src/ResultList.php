@@ -6,6 +6,8 @@
  */
 namespace Ultra;
 
+use Generator;
+
 /**
  * Обёртка для списка.
  * Класс использует для имплементации интерфейса \Ultra\State
@@ -28,6 +30,14 @@ class ResultList implements State {
 		}
 
 		return $this->_value[$key];
+	}
+
+	final public function iterator(): Generator {
+		$count = count($this->_value);
+
+		for ($i = 0; $i < $count; $i++) {
+			yield $i => $this->_value[$i];
+		}
 	}
 
 	final public function __invoke(int $id): mixed {
