@@ -30,6 +30,8 @@ trait Pipe {
 	 * fn handler(Ultra\State $result): mixed;
 	 */
 	public function pipe(Closure ...$handlers): State {
+		assert(AssertionStateClosure::isValidList($handlers));
+
 		if (!$this->valid()) {
 			return $this;
 		}

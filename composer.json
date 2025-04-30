@@ -1,6 +1,6 @@
 {
     "name": "ultra/result",
-    "version": "1.4.1",
+    "version": "2.0.0",
     "type": "library",
     "description": "Allows you to process valid results and states, undefined states, and error states as objects of a single interface.",
     "license": "MIT",
@@ -23,6 +23,6 @@
         }
     },
     "require": {
-        "php": ">=8.3"
+        "php": ">=8.4"
     }
 }

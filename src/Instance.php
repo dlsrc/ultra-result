@@ -24,7 +24,7 @@ trait Instance {
 	 * Так как результатом является сам объект, он будет возвращать сам себя в качестве
 	 * значения.
 	 */
-	public function unwrap(mixed $default = null): mixed {
+	public function unwrap(mixed $default = null): self {
 		return $this;
 	}
 
@@ -32,7 +32,7 @@ trait Instance {
 	 * Так как результатом является сам объект, он будет возвращать сам себя в качестве
 	 * значения.
 	 */
-	public function expect(Closure|null $reject = null): mixed {
+	public function expect(Closure|null $reject = null): self {
 		return $this;
 	}
 }

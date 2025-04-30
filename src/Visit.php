@@ -20,6 +20,8 @@ trait Visit {
 	 * fn acceptor(Ultra\State $self): void;
 	 */
 	public function visit(Closure ...$acceptors): State {
+		assert(AssertionStateClosure::isValidList($acceptors));
+
 		if (!$this->valid()) {
 			return $this;
 		}

@@ -23,6 +23,8 @@ trait Chain {
 	 * обернуть новое значение не являющееся интерфейсом Ultra\State в объект Ultra\Result.
 	 */
 	public function chain(Closure ...$handlers): State {
+		assert(AssertionStateClosure::isValidList($handlers));
+
 		if (!$this->valid()) {
 			return $this;
 		}
