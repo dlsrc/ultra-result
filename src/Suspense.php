@@ -41,7 +41,7 @@ trait Suspense {
 	}
 
 	public function expect(Closure|null $reject = null): mixed {
-		assert(AssertionStateClosure::isValidOrNull($reject));
+		assert(AssertionState::isValidOrNull($reject));
 
 		if (null === $reject) {
 			return null;
@@ -51,7 +51,7 @@ trait Suspense {
 	}
 
 	public function fetch(Closure|null $resolve = null, Closure|null $reject = null): State|null {
-		assert(AssertionStateClosure::isValidOrNull($reject));
+		assert(AssertionState::isValidOrNull($reject));
 
 		if (null === $reject && null === ($result = $reject($this))) {
 			return null;
@@ -65,7 +65,7 @@ trait Suspense {
 	}
 
 	public function follow(Closure|null $resolve = null, Closure|null $reject = null): State {
-		assert(AssertionStateClosure::isValidOrNull($reject));
+		assert(AssertionState::isValidOrNull($reject));
 
 		if (null === $reject) {
 			return $this;
@@ -83,7 +83,7 @@ trait Suspense {
 	}
 
 	public function recover(Closure $reject): State {
-		assert(AssertionStateClosure::isValid($reject));
+		assert(AssertionState::isValid($reject));
 
 		if (null === ($result = $reject($this))) {
 			return $this;

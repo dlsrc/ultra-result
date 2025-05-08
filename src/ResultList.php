@@ -16,15 +16,20 @@ use Generator;
 class ResultList implements State {
 	use ArrayWrapper;
 
-	final public function __construct(mixed ...$values) {
+	final public function __construct(State ...$values) {
 		$this->_value = $values;
 	}
 
 	final public function append(mixed $value): void {
-		$this->_value[] = $value;
+		if ($value instanceof State) {
+			$this->_value[] = $value;
+		}
+		else {
+			$this->_value[] = new Result($value);
+		}
 	}
 
-	final public function last(): mixed {
+	final public function last(): State|null {
 		if (null === ($key = array_key_last($this->_value))) {
 			return null;
 		}
@@ -40,7 +45,7 @@ class ResultList implements State {
 		}
 	}
 
-	final public function __invoke(int $id): mixed {
+	final public function __invoke(int $id): State|null {
 		if (isset($this->_value[$id])) {
 			return $this->_value[$id];
 		}

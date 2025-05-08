@@ -44,7 +44,7 @@ trait Valid {
 	}
 
 	public function follow(Closure|null $resolve = null, Closure|null $reject = null): State {
-		assert(AssertionStateClosure::isValidOrNull($resolve));
+		assert(AssertionState::isValidOrNull($resolve));
 
 		if (null === $resolve) {
 			return $this;
@@ -54,7 +54,7 @@ trait Valid {
 	}
 
 	public function commit(Closure $resolve): State {
-		assert(AssertionStateClosure::isValid($resolve));
+		assert(AssertionState::isValid($resolve));
 
 		if (null === ($result = $resolve($this))) {
 			return $this;

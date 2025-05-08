@@ -13,15 +13,20 @@ namespace Ultra;
 class ResultMap implements State {
 	use ArrayWrapper;
 
-	final public function __construct(array $map = []) {
-		$this->_value = $map;
+	final public function __construct() {
+		$this->_value = [];
 	}
 
 	final public function __set(string $name, mixed $value): void {
-		$this->_value[$name] = $value;
+		if ($value instanceof State) {
+			$this->_value[$name] = $value;
+		}
+		else {
+			$this->_value[$name] = new Result($value);
+		}
 	}
 
-	final public function __get(string $name): mixed {
+	final public function __get(string $name): Result|null {
 		if (isset($this->_value[$name])) {
 			return $this->_value[$name];
 		}
