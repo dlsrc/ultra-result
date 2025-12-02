@@ -29,7 +29,7 @@ trait Pipe {
 	 * Ожидаемая сигнатура замыкания:
 	 * fn handler(Ultra\State $result): mixed;
 	 */
-	public function pipe(Closure ...$handlers): ResultList {
+	public function pipe(Closure ...$handlers): State {
 		assert(AssertionState::isValidList($handlers));
 
 		if (!$this->valid()) {

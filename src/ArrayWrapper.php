@@ -9,7 +9,7 @@ namespace Ultra;
 use Closure;
 
 /**
- * Типаж для имплементации интерфейса \Ultra\State в классах, служащих обёрткой массивам.
+ * Типаж для имплементации интерфейса \Ultra\State в классах, служащих обёрткой валидным массивам.
  * На основе типажа Ultra\ArrayWrapper реализованы стандартные обёртки Ultra\ResultList и Ultra\ResultMap.
  */
 trait ArrayWrapper {

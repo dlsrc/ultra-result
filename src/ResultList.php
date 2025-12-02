@@ -6,12 +6,9 @@
  */
 namespace Ultra;
 
-use Generator;
-
 /**
- * Обёртка для списка.
- * Класс использует для имплементации интерфейса \Ultra\State
- * типаж Ultra\ArrayWrapper.
+ * Интерфейс \Ultra\State квк обёртка для списка других интерфейсов \Ultra\State.
+ * Класс использует для имплементации интерфейса \Ultra\State типаж Ultra\ArrayWrapper.
  */
 class ResultList implements State {
 	use ArrayWrapper;
@@ -37,7 +34,7 @@ class ResultList implements State {
 		return $this->_value[$key];
 	}
 
-	final public function iterator(): Generator {
+	final public function iterator() {
 		$count = count($this->_value);
 
 		for ($i = 0; $i < $count; $i++) {

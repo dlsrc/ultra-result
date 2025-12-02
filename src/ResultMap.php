@@ -7,7 +7,7 @@
 namespace Ultra;
 
 /**
- * Обёртка для ассоциативного массива.
+ * Интерфейс \Ultra\State квк обёртка для ассоциативного списка других интерфейсов \Ultra\State.
  * Класс использует для имплементации интерфейса \Ultra\State типаж Ultra\ArrayWrapper.
  */
 class ResultMap implements State {
@@ -17,7 +17,7 @@ class ResultMap implements State {
 		$this->_value = [];
 	}
 
-	final public function __set(string $name, mixed $value): void {
+	final public function add(string $name, mixed $value): void {
 		if ($value instanceof State) {
 			$this->_value[$name] = $value;
 		}
@@ -26,11 +26,19 @@ class ResultMap implements State {
 		}
 	}
 
-	final public function __get(string $name): Result|null {
+	final public function result(string $name): State|null {
 		if (isset($this->_value[$name])) {
 			return $this->_value[$name];
 		}
 
 		return null;
+	}
+
+	final public function __set(string $name, mixed $value): void {
+		$this->add($name, $value);
+	}
+
+	final public function __get(string $name): State|null {
+		return $this->result($name);
 	}
 }
