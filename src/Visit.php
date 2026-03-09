@@ -22,14 +22,21 @@ trait Visit {
 	public function visit(Closure ...$acceptors): State {
 		assert(AssertionState::isValidList($acceptors));
 
-		if (!$this->valid()) {
-			return $this;
+		if ($this instanceof State) {
+			if (!$this->valid()) {
+				return $this;
+			}
+
+			$visitor = $this;
 		}
-		
-		foreach ($acceptors as $acceptor) {
-			$acceptor($this);
+		else {
+			$visitor = new Result($this);
 		}
 
-		return $this;
+		foreach ($acceptors as $acceptor) {
+			$acceptor($visitor);
+		}
+
+		return $visitor;
 	}
 }

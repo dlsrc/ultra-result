@@ -32,11 +32,18 @@ trait Pipe {
 	public function pipe(Closure ...$handlers): State {
 		assert(AssertionState::isValidList($handlers));
 
-		if (!$this->valid()) {
-			return $this;
+		if ($this instanceof State) {
+			if (!$this->valid()) {
+				return $this;
+			}
+
+			$action = $this;
+		}
+		else {
+			$action = new Result($this);
 		}
 
-		$list = new ResultList($this);
+		$list = new ResultList($action);
 
 		foreach ($handlers as $key => $handler) {
 			$last = $list($key);
@@ -49,7 +56,7 @@ trait Pipe {
 				$list->append($handler($last));
 			}
 			else {
-				$list->append($handler($this));
+				$list->append($handler($action));
 			}
 		}
 

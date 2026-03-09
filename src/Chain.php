@@ -9,7 +9,7 @@ namespace Ultra;
 use Closure;
 
 /**
- * Типаж реализует интерфейс Ultra\Sequence для любых состояний.
+ * Типаж реализует интерфейс Ultra\Chaining для любых состояний.
  */
 trait Chain {
 	/**
@@ -25,14 +25,21 @@ trait Chain {
 	public function chain(Closure ...$handlers): State {
 		assert(AssertionState::isValidList($handlers));
 
-		if (!$this->valid()) {
-			return $this;
+		if ($this instanceof State) {
+			if (!$this->valid()) {
+				return $this;
+			}
+
+			$action = $this;
+		}
+		else {
+			$action = new Result($this);
 		}
 
 		foreach ($handlers as $handler) {
-			$result = $handler($this);
+			$result = $handler($action);
 
-			if ($result === $this) {
+			if ($result === $action) {
 				continue;
 			}
 
@@ -43,6 +50,6 @@ trait Chain {
 			return new Result($result);
 		}
 
-		return $this;
+		return $action;
 	}
 }
